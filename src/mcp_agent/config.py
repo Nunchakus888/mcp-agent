@@ -514,16 +514,16 @@ def get_settings(config_path: str | None = None) -> Settings:
             settings = Settings(**settings)
             return settings
         except Exception as e:
+        except Exception as e:
             if preload_settings.preload_strict:
                 raise ValueError(
-                    "MCP App Preloaded Settings value failed validation", e
-                )
-            else:
-                # TODO: Decide the right logging call here - I'm cautious that it's in a very central scope
-                print(
-                    f"MCP App Preloaded Settings value failed validation: {e}",
-                    file=sys.stderr,
-                )
+                    "MCP App Preloaded Settings value failed validation"
+                ) from e
+            # TODO: Decide the right logging call here - I'm cautious that it's in a very central scope
+            print(
+                f"MCP App Preloaded Settings value failed validation: {e}",
+                file=sys.stderr,
+            )
 
     # Determine the config file to use
     if config_path:
