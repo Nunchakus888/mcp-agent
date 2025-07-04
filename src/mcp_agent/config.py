@@ -514,7 +514,6 @@ def get_settings(config_path: str | None = None) -> Settings:
             settings = Settings(**settings)
             return settings
         except Exception as e:
-        except Exception as e:
             if preload_settings.preload_strict:
                 raise ValueError(
                     "MCP App Preloaded Settings value failed validation"

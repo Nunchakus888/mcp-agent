@@ -43,6 +43,14 @@ class TestConfigPreload:
     def clear_global_settings(self):
         _clear_global_settings()
 
+    @pytest.fixture(autouse=True)
+    def clear_test_env(self):
+        yield
+        if "MCP_APP_SETTINGS_PRELOAD" in os.environ:
+            del os.environ["MCP_APP_SETTINGS_PRELOAD"]
+        if "MCP_APP_SETTINGS_PRELOAD_STRICT" in os.environ:
+            del os.environ["MCP_APP_SETTINGS_PRELOAD_STRICT"]
+
     @pytest.fixture(scope="session")
     def example_settings(self):
         return _EXAMPLE_SETTINGS
